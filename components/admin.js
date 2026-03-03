@@ -1,8 +1,8 @@
 export function createAdmin(app) {
-  sideStart(app);
+  render(app);
 }
 
-const sideStart = (app) => {
+const render = (app) => {
   app.innerHTML = `
          <h2>About KinoXP</h2>
          <p>KinoXP is a simple application to help you organize your daily movies.</p>

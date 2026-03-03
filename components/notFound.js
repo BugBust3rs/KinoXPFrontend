@@ -1,8 +1,8 @@
 export function createNotFound(app) {
-  sideStart(app);
+  render(app);
 }
 
-const sideStart = (app) => {
+const render = (app) => {
   app.innerHTML = `
         <div class="hero">
             <h2>404 - Page Not Found</h2>
