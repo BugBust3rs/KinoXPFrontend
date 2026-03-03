@@ -2,6 +2,7 @@ import { createMovies } from "./movies.js";
 import { createHome } from "./home.js";
 import { createAdmin } from "./admin.js";
 import { createNotFound } from "./notFound.js";
+import { createScreenings } from "./screenings.js"
 
 // Router logic
 function router() {
@@ -10,13 +11,21 @@ function router() {
 
   // Update the app container
   const app = document.getElementById("app");
+
   app.innerHTML = "";
+
+  const screeningsMatch = hash.match(/^\/screenings\/(\d+|[a-zA-Z0-9-_]+)$/);
+
+
   if (hash === "/") {
     createHome(app);
   } else if (hash === "/movies") {
     createMovies(app);
   } else if (hash === "/admin") {
     createAdmin(app);
+  } else if (screeningsMatch) {
+    const movieId = screeningsMatch[1];
+    createScreenings(app, movieId);
   } else {
     view = views.notFound();
   }
