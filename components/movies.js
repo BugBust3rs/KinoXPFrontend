@@ -1,4 +1,4 @@
-import { fetchMovies } from "./api/movie.api.js";
+import { fetchMovies } from "../api/movie.api.js";
 
 const ul = document.createElement("ul");
 
@@ -12,7 +12,7 @@ const render = async (app) => {
   ul.innerHTML = "";
 
   ul.classList.add("horizontal-list");
-  ul.classList.add("p-5");
+  ul.classList.add("pt-5");
 
   movies.forEach((movie) => {
     createMovie(movie);
@@ -33,7 +33,7 @@ const createMovie = (movie) => {
   poster.classList.add("poster");
 
   const img = document.createElement("img");
-  img.src = "inception.jpg.webp";
+  img.src = movie.base64;
   img.alt = `Poster for ${movie.title}`;
   img.classList.add("rounded");
   poster.appendChild(img);
