@@ -1,8 +1,8 @@
-import { createMovies } from "./components/movies.js";
-import { createHome } from "./components/home.js";
-import { createAdmin } from "./components/admin.js";
-import { createNotFound } from "./components/notFound.js";
-import { createScreenings } from "./components/screenings.js"
+import { createMovies } from "./pages/movies.js";
+import { createHome } from "./pages/home.js";
+import { createAdmin } from "./pages/admin.js";
+import { createNotFound } from "./pages/notFound.js";
+import { createScreenings } from "./pages/screenings.js"
 
 // Router logic
 function router() {
