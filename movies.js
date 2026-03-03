@@ -1,3 +1,5 @@
+import { fetchMovies } from "./api/movie.api.js"
+
 export function createMovies(app) {
         sideStart(app)
 }
