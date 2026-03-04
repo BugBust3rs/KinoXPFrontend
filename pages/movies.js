@@ -9,16 +9,25 @@ export function createMovies(app) {
 const render = async (app) => {
   const movies = await fetchMovies();
   console.log(movies);
+
+  const div = document.createElement("div");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = "currently playing";
+  h2.classList.add("text-light")
+
+  div.appendChild(h2);
   ul.innerHTML = "";
 
   ul.classList.add("horizontal-list");
-  ul.classList.add("pt-5");
+  div.classList.add("pt-5");
 
   movies.forEach((movie) => {
     createMovie(movie);
   });
 
-  app.appendChild(ul);
+  div.appendChild(ul);
+  app.appendChild(div);
 };
 
 const createMovie = (movie) => {
@@ -52,7 +61,7 @@ const createMovie = (movie) => {
   article.appendChild(a);
   article.appendChild(p);
 
-  li.classList.add("m-3");
+  li.style.marginRight = "40px"
   li.appendChild(article);
   ul.appendChild(li);
 };

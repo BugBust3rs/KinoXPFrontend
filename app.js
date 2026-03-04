@@ -8,7 +8,8 @@ import { createScreenings } from "./pages/screenings.js"
 function router() {
   // Get the hash (e.g., #/movies)
   const hash = window.location.hash.slice(1) || "/";
-
+  console.log(hash, "hash");
+  
   // Update the app container
   const app = document.getElementById("app");
 
@@ -27,7 +28,7 @@ function router() {
     const movieId = screeningsMatch[1];
     createScreenings(app, movieId);
   } else {
-    view = views.notFound();
+    createNotFound(app)
   }
 
   // Update active nav link
