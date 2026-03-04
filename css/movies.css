@@ -10,7 +10,7 @@
 }
 
 .horizontal-list > li {
-  width: 160px !important;
+  width: 250px !important;
   display: block;
 }
 
@@ -28,17 +28,25 @@
   background-position: 0 100%;
   background-size: 0% 2px;
   transition: background-size 0.3s ease;
-  padding-bottom: 2px; /* gives room for the underline */
+  padding-bottom: 0%; /* gives room for the underline */
 }
 
 .horizontal-list a:hover h3{
   background-size: 100% 2px;
 }
 
+.horizontal-list article{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+}
+
 /* wrapper that keeps the same size */
 .poster {
-  width: 160px;
-  height: 240px;
+  width: 250px;
+  height: 375px;
   overflow: hidden;
   border-radius: 0.5rem; /* like Bootstrap rounded */
 }

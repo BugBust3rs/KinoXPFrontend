@@ -14,7 +14,7 @@ const render = async (app) => {
 
   const h2 = document.createElement("h2");
   h2.textContent = "currently playing";
-  h2.classList.add("text-light")
+  h2.classList.add("text-light");
 
   div.appendChild(h2);
   ul.innerHTML = "";
@@ -44,24 +44,31 @@ const createMovie = (movie) => {
   const img = document.createElement("img");
   img.src = movie.base64;
   img.alt = `Poster for ${movie.title}`;
-  img.classList.add("rounded");
   poster.appendChild(img);
 
   const h3 = document.createElement("h3");
   h3.textContent = movie.title;
-  h3.classList.add("text-danger");
+  h3.classList.add("text-danger", "mb-1");
+  h3.style.marginTop = "0%"
+
 
   a.appendChild(poster);
   a.appendChild(h3);
 
   const p = document.createElement("p");
   p.textContent = `${movie.category} · ${movie.durationMinutes} · ${movie.ageLimit}`;
-  p.classList.add("text-secondary");
+  p.classList.add("text-secondary"); // remove top margin
+  p.style.marginTop = "0%"
+
+  const button = document.createElement("a");
+  button.classList.add("btn", "btn-secondary");
+  button.href = `#/screenings/${movie.id}`;
+  button.textContent = "Buy Tickets";
 
   article.appendChild(a);
   article.appendChild(p);
-
-  li.style.marginRight = "40px"
+  article.appendChild(button);
+  li.style.marginRight = "40px";
   li.appendChild(article);
   ul.appendChild(li);
 };
