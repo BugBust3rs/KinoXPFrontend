@@ -1,0 +1,60 @@
+.horizontal-list{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;    
+}
+
+.horizontal-list > li {
+  width: 160px !important;
+  display: block;
+}
+
+.horizontal-list h3 {
+  font-size: 1.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.horizontal-list a h3{
+  display: inline-block;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.3s ease;
+  padding-bottom: 2px; /* gives room for the underline */
+}
+
+.horizontal-list a:hover h3{
+  background-size: 100% 2px;
+}
+
+/* wrapper that keeps the same size */
+.poster {
+  width: 160px;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 0.5rem; /* like Bootstrap rounded */
+}
+
+/* the image fills the wrapper */
+.poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+/* zoom "into" the image while staying clipped */
+.poster:hover img,
+.poster:focus-within img {
+  transform: scale(1.15);
+
+}

@@ -1,24 +1,34 @@
-import { createMovies } from "./movies.js";
-import { createHome } from "./home.js";
-import { createAdmin } from "./admin.js";
-import { createNotFound } from "./notFound.js";
+import { createMovies } from "./pages/movies.js";
+import { createHome } from "./pages/home.js";
+import { createAdmin } from "./pages/admin.js";
+import { createNotFound } from "./pages/notFound.js";
+import { createScreenings } from "./pages/screenings.js"
 
 // Router logic
 function router() {
   // Get the hash (e.g., #/movies)
   const hash = window.location.hash.slice(1) || "/";
-
+  console.log(hash, "hash");
+  
   // Update the app container
   const app = document.getElementById("app");
+
   app.innerHTML = "";
+
+  const screeningsMatch = hash.match(/^\/screenings\/(\d+|[a-zA-Z0-9-_]+)$/);
+
+
   if (hash === "/") {
     createHome(app);
   } else if (hash === "/movies") {
     createMovies(app);
   } else if (hash === "/admin") {
     createAdmin(app);
+  } else if (screeningsMatch) {
+    const movieId = screeningsMatch[1];
+    createScreenings(app, movieId);
   } else {
-    view = views.notFound();
+    createNotFound(app)
   }
 
   // Update active nav link

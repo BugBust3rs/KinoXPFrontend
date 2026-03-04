@@ -1,8 +1,8 @@
 export function createHome(app) {
-  sideStart(app);
+  render(app);
 }
 
-const sideStart = (app) => {
+const render = (app) => {
   app.innerHTML = `
         <div class="hero">
              <h2>Welcome to Task Manager</h2>
