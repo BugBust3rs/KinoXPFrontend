@@ -9,9 +9,12 @@
   gap: 10px;    
 }
 
+
+
 .horizontal-list > li {
   width: 250px !important;
   display: block;
+  margin-bottom: 20px;
 }
 
 .horizontal-list h3 {
