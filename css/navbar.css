@@ -1,5 +1,5 @@
 .navbar {
-    background: linear-gradient(to right, #111, #1c1c1c);
+    background: radial-gradient(circle at center, #1c1c1c, #111);
 }
 
 .navbar-brand {
