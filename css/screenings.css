@@ -1,0 +1,89 @@
+.horizontal-list-screenings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    width: 80%;          /* important */
+    max-width: 90%;      /* prevents expanding */
+    
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    gap: 50px;
+}
+
+.horizontal-list-screenings > li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.horizontal-list-screenings > li ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+.horizontal-list-screenings h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.date-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 100px;
+    padding: 10px 16px;
+}
+
+.vertical-list-screenings {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+
+}
+
+
+.main-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    
+}
+
+.screening-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-top: 54px;
+    gap: 20px;
+}
+
+.poster img {
+    width: 250px;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+}
+
+.day-screenings {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+}
+
+.description {
+    width: 300px;
+}

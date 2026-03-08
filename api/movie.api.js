@@ -16,6 +16,12 @@ export async function fetchMovies() {
   }
 }
 
+export async function fetchMovie(movieId) {
+  const movies = fakeMovies();
+  console.log(movies, "movies", movieId, "movieId");
+  return movies.find(movie => movie.id === Number(movieId));
+}
+
 function fakeMovies() {
    return [
   {
