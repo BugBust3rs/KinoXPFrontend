@@ -1,18 +1,20 @@
-const BASE_URL_SCREENINGS = "http://localhost:8080/api/screenings/";
+const BASE_URL_SCREENINGS = "http://localhost:8080/screenings/";
 
 export async function fetchScreenings(movieId) {
-//   try {
-//     const response = await fetch(`${BASE_URL_SCREENINGS}${movieId}`);
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error("Error fetching screenings", error);
-//   } 
-    console.log(movieId, "movieId");
-
-    return screenings.filter(screening => screening.movie.id === Number(movieId));
+  try {
+    const response = await fetch(`${BASE_URL_SCREENINGS}movie/${movieId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const screenings = await response.json();
+    console.log(screenings, "screenings");
+     
+    return screenings;
+  } catch (error) {
+    console.error("Error fetching screenings", error);
+  } 
+    // console.log(movieId, "movieId");
+    // return screenings.filter(screening => screening.movie.id === Number(movieId));
 }
 
 
