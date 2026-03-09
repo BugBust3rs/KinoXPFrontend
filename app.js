@@ -1,4 +1,3 @@
-import { createMovies } from "./pages/movies.js";
 import { createHome } from "./pages/home.js";
 import { createAdmin } from "./pages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
@@ -22,8 +21,6 @@ function router() {
 
   if (hash === "/") {
     createHome(app);
-  } else if (hash === "/movies") {
-    createMovies(app);
   } else if (hash === "/admin") {
     createAdmin(app);
   } else if (screeningsMatch) {

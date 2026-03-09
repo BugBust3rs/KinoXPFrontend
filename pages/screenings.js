@@ -11,6 +11,7 @@ export async function createScreenings(app, movieId) {
 
   const mainContent = document.createElement("div");
   mainContent.classList.add("main-content");
+  mainContent.style.position = "relative";
 
   const poster = createPoster(movie);
 
@@ -51,7 +52,7 @@ export async function createScreenings(app, movieId) {
     console.log(dateScreenings, "dateScreenings");
     const list = document.createElement("ul");
     list.classList.add("day-screenings");
-    
+
     dateScreenings.forEach((screening) => {
       renderScreenings(screening, list);
     });
@@ -67,7 +68,7 @@ export async function createScreenings(app, movieId) {
 
   screeningContent.appendChild(dateList);
   screeningContent.appendChild(screeningList);
-
+  mainContent.appendChild(BackArrow());
   mainContent.appendChild(poster);
   mainContent.appendChild(screeningContent);
 
@@ -78,7 +79,7 @@ function renderScreenings(screening, list) {
 
   const li = document.createElement("li");
   li.classList.add("mb-3");
-  const { time } = splitDateTime(screening.startDateTime);
+  const { time } = splitDateTime(screening.startTime);
 
   const a = document.createElement("a");
 
@@ -114,11 +115,33 @@ function renderScreenings(screening, list) {
 
 }
 
+function BackArrow() {
+  const a = document.createElement("a");
+  a.href = "#/";
+  a.classList.add("back-arrow", "text-secondary");
+  a.textContent = "← Back to home page";
+
+  a.style.position = "absolute";
+  a.style.top = "10px";
+  a.style.left = "20px";
+  a.style.fontWeight = "500";
+  a.style.zIndex = "10";
+  a.style.fontSize = "1.5rem";
+  a.style.gap = "6px";
+  a.style.display = "flex";
+  a.style.alignItems = "center";
+  a.style.opacity = "0.8";
+  a.onmouseenter = () => a.style.opacity = "1";
+  a.onmouseleave = () => a.style.opacity = "0.8";
+
+  return a;
+}
+
 function groupScreeningsByDate(screenings) {
   const grouped = {};
 
   screenings.forEach((screening) => {
-    const { date } = splitDateTime(screening.startDateTime);
+    const { date } = splitDateTime(screening.startTime);
 
     if (!grouped[date]) {
       grouped[date] = [];
@@ -131,6 +154,8 @@ function groupScreeningsByDate(screenings) {
 }
 
 function splitDateTime(datetime) {
+  console.log(datetime, "datetime");
+
   const [date, time] = datetime.split("T");
   const [, month, day] = date.split("-");
   const [hours, minutes] = time.split(":");
@@ -147,9 +172,9 @@ function createPoster(movie) {
 
   // poster image
   const img = document.createElement("img");
-  img.src = movie.base64;
+  img.src = `data:image/png;base64,${movie.image}`;
   img.alt = `Poster for ${movie.title}`;
-  img.style.width = "220px";
+  img.style.width = "300px";
   img.style.borderRadius = "8px";
 
   // info container
