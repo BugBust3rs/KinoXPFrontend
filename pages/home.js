@@ -115,7 +115,7 @@ const createMovie = (movie) => {
   const button = document.createElement("a");
   button.classList.add("btn", "btn-secondary");
   button.href = `#/screenings/${movie.id}`;
-  button.textContent = "Buy Tickets";
+  button.textContent = "Reserve Tickets";
 
   article.appendChild(a);
   article.appendChild(p);
