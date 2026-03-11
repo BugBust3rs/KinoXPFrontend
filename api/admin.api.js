@@ -28,5 +28,6 @@ export async function logout() {
         method: "POST",
         credentials: "include"
     });
-    window.location.hash = "/login";
+    localStorage.removeItem("isAuthenticated");
+    window.location.hash = "/admin";
 }
