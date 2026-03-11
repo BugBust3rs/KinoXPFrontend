@@ -3,11 +3,10 @@ import { createAdmin } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
-import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
 import { checkSession } from "./api/admin.api.js";
 import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
-
 import { createConfirmation } from "./pages/confirmation.js";
+
 // Router logic
 async function router() {
   // Get the hash (e.g., #/movies)
@@ -21,17 +20,13 @@ async function router() {
 
   const screeningsMatch = hash.match(/^\/screenings\/(\d+|[a-zA-Z0-9-_]+)$/);
   const reservationMatch = hash.match(/^\/reservation\/(\d+|[a-zA-Z0-9-_]+)$/);
-  const confirmationMatch = hash.match(/^\/confirmation\/(\d+|[a-zA-Z0-9-_]+)$/);
+  const confirmationMatch = hash.match(/^\/confirmation\/(\d+)$/);
 
 
   if (hash === "/") {
     createHome(app);
   } else if (hash === "/admin") {
     createAdmin(app);
-  } else if (hash === "/admin/reservations"){
-    createAdminReservation(app); 
-  } else if (confirmationMatch) {
-    createConfirmation(app, confirmationMatch[1]);
   } else if (hash === "/admin/menu") {
     // const loggedIn = await checkSession();
     // console.log("Session check on menu:", loggedIn);
@@ -47,7 +42,11 @@ async function router() {
   } else if (reservationMatch) {
     const screeningId = reservationMatch[1];
     createReservation(app, screeningId);
-  } else {
+  } else if (confirmationMatch) { // 👈 tilføj her
+    const reservationId = confirmationMatch[1];
+    createConfirmation(app, reservationId);
+  }
+  else {
     createNotFound(app)
   }
   
