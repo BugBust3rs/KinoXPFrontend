@@ -99,15 +99,15 @@ async function createRow(reservation){
     const td5 = document.createElement("td");
 
     // Henter den tilknyttede screening fra backend via screening-id
-    const screening = await fetchScreening(reservation.screening.id)
+    const screening = await fetchScreening(reservation.screeningId)
 
     console.log(reservation.seats);
 
     console.log(screening, "screening");
-    console.log(screening.startDateTime, "reservation.startDateTime");
+    console.log(screening.startTime, "reservation.startDateTime");
 
     // Splitter dato og tid fra screeningens startDateTime
-    const { date, time } = splitDateTime(screening.startDateTime);
+    const { date, time } = splitDateTime(screening.startTime);
 
     // Udfylder cellerne med kundenavn, filmtitel, dato+tid og sæder
     td1.textContent = reservation.customerName;

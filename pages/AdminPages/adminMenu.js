@@ -15,17 +15,16 @@ const reservationsBtn = document.createElement("button");
 reservationsBtn.textContent = "Reservations";
 reservationsBtn.classList.add("admin-menu-btn");
 reservationsBtn.onclick = () => {
-    app.innerHTML = "";
-    createReservationList(app);
+    window.location.hash = "/admin/reservations";
 };
+
 
     const movieListBtn = document.createElement("button");
     movieListBtn.classList.add("admin-menu-btn");
     movieListBtn.textContent = "Movie List";
     movieListBtn.onclick = () => {
-        app.innerHTML = "";
-        createMovieList(app);
-    };
+    window.location.hash = "/admin/movie-list";
+};
 
     const logoutBtn = document.createElement("button");
     logoutBtn.textContent = "Logout";

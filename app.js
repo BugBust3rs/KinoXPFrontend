@@ -1,10 +1,11 @@
 import { createHome } from "./pages/home.js";
-import { createAdmin } from "./pages/AdminPages/admin.js";
+import { createAdmin, getAuthenticated } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
-import { checkSession } from "./api/admin.api.js";
-import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
+import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
+import { createAdminMenu } from "./pages/AdminPages/adminmenu.js";
+import { createAdminMovieList } from "./pages/AdminPages/adminMovieList.js";
 import { createConfirmation } from "./pages/confirmation.js";
 
 // Router logic
@@ -26,7 +27,13 @@ async function router() {
   if (hash === "/") {
     createHome(app);
   } else if (hash === "/admin") {
-    createAdmin(app);
+    if (getAuthenticated()) {
+        window.location.hash = "/admin/menu";} else {
+        createAdmin(app);}
+  } else if (hash === "/admin/reservations"){
+    createAdminReservation(app); 
+  } else if (confirmationMatch) {
+    createConfirmation(app, confirmationMatch[1]);
   } else if (hash === "/admin/menu") {
     // const loggedIn = await checkSession();
     // console.log("Session check on menu:", loggedIn);
@@ -42,11 +49,9 @@ async function router() {
   } else if (reservationMatch) {
     const screeningId = reservationMatch[1];
     createReservation(app, screeningId);
-  } else if (confirmationMatch) { // 👈 tilføj her
-    const reservationId = confirmationMatch[1];
-    createConfirmation(app, reservationId);
-  }
-  else {
+  } else if (hash === "/admin/movie-list") {
+    createAdminMovieList(app);
+  } else {
     createNotFound(app)
   }
   
