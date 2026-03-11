@@ -22,9 +22,7 @@ export async function postReservation(reservation) {
 
 export async function fetchReservations() {
   try {
-    const response = await fetch('http://localhost:8080/reservations/');
-    console.log(reservation); // 👈 hvad ser du i konsollen?
-console.log(reservation.screening); // 👈 er screening undefined?
+    const response = await fetch('http://localhost:8080/reservations');
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
