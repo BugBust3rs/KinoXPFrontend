@@ -17,6 +17,22 @@ export async function fetchScreenings(movieId) {
     // return screenings.filter(screening => screening.movie.id === Number(movieId));
 }
 
+export async function fetchScreening(screeningId) {
+  try {
+    const response = await fetch(`${BASE_URL_SCREENINGS}${screeningId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const screening = await response.json();
+    console.log(screening, "screening");
+     
+    return screening;
+
+  } catch (error) {
+    console.error("Error fetching screening", error);
+  }
+}
+
 
 
 const screenings = [

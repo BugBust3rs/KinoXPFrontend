@@ -3,7 +3,7 @@ import { createAdmin } from "./pages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
-
+import { createConfirmation } from "./pages/confirmation.js";
 // Router logic
 function router() {
   // Get the hash (e.g., #/movies)
@@ -17,12 +17,15 @@ function router() {
 
   const screeningsMatch = hash.match(/^\/screenings\/(\d+|[a-zA-Z0-9-_]+)$/);
   const reservationMatch = hash.match(/^\/reservation\/(\d+|[a-zA-Z0-9-_]+)$/);
+  const confirmationMatch = hash.match(/^\/confirmation\/(\d+|[a-zA-Z0-9-_]+)$/);
 
 
   if (hash === "/") {
     createHome(app);
   } else if (hash === "/admin") {
     createAdmin(app);
+  } else if (confirmationMatch) {
+    createConfirmation(app, confirmationMatch[1]);
   } else if (screeningsMatch) {
     const movieId = screeningsMatch[1];
     createScreenings(app, movieId);
