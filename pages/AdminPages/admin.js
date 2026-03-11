@@ -1,11 +1,11 @@
-export function createAdmin(app) {
-  render(app);
-}
+import { createAdminLogin } from "./AdminLogin.js";
 
-const render = (app) => {
-  app.innerHTML = `
-         <h2>About KinoXP</h2>
-         <p>KinoXP is a simple application to help you organize your daily movies.</p>
-         <p>Built with HTML, CSS, and JavaScript.</p>
-     `;
-};
+export async function createAdmin(app) {
+  // const isLoggedIn = await checkSession();
+  createAdminLogin(app);
+    // if (true) {
+    //     window.location.hash = "/admin/menu"; // ← router will handle the rest
+    // } else {
+    //     createAdminLogin(app);
+    // }
+}

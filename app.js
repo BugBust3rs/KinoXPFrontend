@@ -1,12 +1,14 @@
 import { createMovies } from "./pages/movies.js";
 import { createHome } from "./pages/home.js";
-import { createAdmin } from "./pages/admin.js";
+import { createAdmin } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
+import { checkSession } from "./api/admin.api.js";
+import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
 
 // Router logic
-function router() {
+async function router() {
   // Get the hash (e.g., #/movies)
   const hash = window.location.hash.slice(1) || "/";
   console.log(hash, "hash");
@@ -26,6 +28,15 @@ function router() {
     createMovies(app);
   } else if (hash === "/admin") {
     createAdmin(app);
+  } else if (hash === "/admin/menu") {
+    // const loggedIn = await checkSession();
+    // console.log("Session check on menu:", loggedIn);
+    // if (!loggedIn) {
+    //   window.location.hash = "/admin";
+    //   return;
+    // }
+    createAdminMenu(app);
+
   } else if (screeningsMatch) {
     const movieId = screeningsMatch[1];
     createScreenings(app, movieId);
@@ -35,16 +46,18 @@ function router() {
   } else {
     createNotFound(app)
   }
+  
 
   // Update active nav link
   updateActiveLink(hash);
 }
 
 // Update active navigation link
-function updateActiveLink(currentHash) {
-  document.querySelectorAll(".nav-links a").forEach((link) => {
+export function updateActiveLink(currentHash) {
+  document.querySelectorAll(".navbar-nav a").forEach((link) => {
     link.classList.remove("active");
-    if (link.getAttribute("href") === `#${currentHash}`) {
+    const linkHash = link.getAttribute("href")?.replace("#", "");
+    if (currentHash === linkHash || (currentHash === "/admin/menu" && linkHash === "/admin")) {
       link.classList.add("active");
     }
   });
