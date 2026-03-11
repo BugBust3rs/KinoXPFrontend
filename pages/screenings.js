@@ -11,6 +11,7 @@ export async function createScreenings(app, movieId) {
 
   const mainContent = document.createElement("div");
   mainContent.classList.add("main-content");
+  mainContent.style.position = "relative";
 
   const poster = createPoster(movie);
 
@@ -23,62 +24,104 @@ export async function createScreenings(app, movieId) {
   const screeningList = document.createElement("ul");
   screeningList.classList.add("vertical-list-screenings");
 
-  Object.entries(screeningsByDate).forEach(([date, dateScreenings], index) => {
+  Object.entries(screeningsByDate).forEach(([date, dateScreenings]) => {
     const dateItem = document.createElement("li");
 
     const weekdayEl = document.createElement("h3");
 
-    const [day, month] = date.split("-");
-
+    const [month, day] = date.split("-");
     const newDate = new Date(2026, Number(month) - 1, Number(day));
-
     const weekDay = newDate.toLocaleDateString("en-US", { weekday: "long" });
 
-    console.log(weekDay); // Saturday
     const dateEl = document.createElement("span");
     dateEl.textContent = date;
     dateEl.classList.add("text-secondary");
+
     const divEl = document.createElement("div");
     divEl.classList.add("d-flex", "flex-column", "align-items-center");
 
+    weekdayEl.textContent = weekDay;
+    weekdayEl.classList.add("text-danger", "mb-2");
 
     divEl.appendChild(weekdayEl);
     divEl.appendChild(dateEl);
-    weekdayEl.textContent = weekDay;
 
-    weekdayEl.classList.add("text-danger", "mb-2");
-
-    console.log(dateScreenings, "dateScreenings");
     const list = document.createElement("ul");
     list.classList.add("day-screenings");
-    
+
     dateScreenings.forEach((screening) => {
       renderScreenings(screening, list);
     });
 
-
     dateItem.appendChild(divEl);
     dateItem.appendChild(list);
     dateList.appendChild(dateItem);
-
-
-
   });
 
-  screeningContent.appendChild(dateList);
+  const sliderWrapper = document.createElement("div");
+  sliderWrapper.classList.add("slider-wrapper");
+
+  const leftBtn = document.createElement("button");
+  leftBtn.classList.add("slider-arrow", "left");
+  leftBtn.innerHTML = "&#10094;";
+  leftBtn.setAttribute("aria-label", "Scroll left");
+
+  const rightBtn = document.createElement("button");
+  rightBtn.classList.add("slider-arrow", "right");
+  rightBtn.innerHTML = "&#10095;";
+  rightBtn.setAttribute("aria-label", "Scroll right");
+
+  sliderWrapper.appendChild(leftBtn);
+  sliderWrapper.appendChild(dateList);
+  sliderWrapper.appendChild(rightBtn);
+
+  const updateButtons = () => {
+    const maxScrollLeft = dateList.scrollWidth - dateList.clientWidth;
+    const isOverflowing = dateList.scrollWidth > dateList.clientWidth;
+
+    leftBtn.style.display = isOverflowing ? "block" : "none";
+    rightBtn.style.display = isOverflowing ? "block" : "none";
+
+    if (!isOverflowing) return;
+
+    leftBtn.disabled = dateList.scrollLeft <= 0;
+    rightBtn.disabled = dateList.scrollLeft >= maxScrollLeft - 1;
+  };
+
+  leftBtn.addEventListener("click", () => {
+    dateList.scrollBy({
+      left: -dateList.clientWidth,
+      behavior: "smooth",
+    });
+  });
+
+  rightBtn.addEventListener("click", () => {
+    dateList.scrollBy({
+      left: dateList.clientWidth,
+      behavior: "smooth",
+    });
+  });
+
+  dateList.addEventListener("scroll", updateButtons);
+  window.addEventListener("resize", updateButtons);
+
+  screeningContent.appendChild(sliderWrapper);
   screeningContent.appendChild(screeningList);
 
+  mainContent.appendChild(BackArrow());
   mainContent.appendChild(poster);
   mainContent.appendChild(screeningContent);
 
   app.appendChild(mainContent);
+
+  updateButtons();
 }
 
 function renderScreenings(screening, list) {
 
   const li = document.createElement("li");
   li.classList.add("mb-3");
-  const { time } = splitDateTime(screening.startDateTime);
+  const { time } = splitDateTime(screening.startTime);
 
   const a = document.createElement("a");
 
@@ -114,11 +157,33 @@ function renderScreenings(screening, list) {
 
 }
 
+function BackArrow() {
+  const a = document.createElement("a");
+  a.href = "#/";
+  a.classList.add("back-arrow", "text-secondary");
+  a.textContent = "← Back to home page";
+
+  a.style.position = "absolute";
+  a.style.top = "10px";
+  a.style.left = "20px";
+  a.style.fontWeight = "500";
+  a.style.zIndex = "10";
+  a.style.fontSize = "1.5rem";
+  a.style.gap = "6px";
+  a.style.display = "flex";
+  a.style.alignItems = "center";
+  a.style.opacity = "0.8";
+  a.onmouseenter = () => a.style.opacity = "1";
+  a.onmouseleave = () => a.style.opacity = "0.8";
+
+  return a;
+}
+
 function groupScreeningsByDate(screenings) {
   const grouped = {};
 
   screenings.forEach((screening) => {
-    const { date } = splitDateTime(screening.startDateTime);
+    const { date } = splitDateTime(screening.startTime);
 
     if (!grouped[date]) {
       grouped[date] = [];
@@ -130,6 +195,12 @@ function groupScreeningsByDate(screenings) {
   return grouped;
 }
 
+function splitDateTime(datetime) {
+  console.log(datetime, "datetime");
+
+  const [date, time] = datetime.split("T");
+  const [, month, day] = date.split("-");
+  const [hours, minutes] = time.split(":");
 
 
 function createPoster(movie) {
@@ -138,9 +209,9 @@ function createPoster(movie) {
 
   // poster image
   const img = document.createElement("img");
-  img.src = movie.base64;
+  img.src = `data:image/png;base64,${movie.image}`;
   img.alt = `Poster for ${movie.title}`;
-  img.style.width = "220px";
+  img.style.width = "300px";
   img.style.borderRadius = "8px";
 
   // info container
