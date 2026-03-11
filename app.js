@@ -1,13 +1,13 @@
 import { createHome } from "./pages/home.js";
-import { createAdmin } from "./pages/AdminPages/admin.js";
+import { createAdmin, getAuthenticated } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
 import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
-import { checkSession } from "./api/admin.api.js";
-import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
-
+import { createAdminMenu } from "./pages/AdminPages/adminmenu.js";
+import { createAdminMovieList } from "./pages/AdminPages/adminMovieList.js";
 import { createConfirmation } from "./pages/confirmation.js";
+
 // Router logic
 async function router() {
   // Get the hash (e.g., #/movies)
@@ -27,7 +27,9 @@ async function router() {
   if (hash === "/") {
     createHome(app);
   } else if (hash === "/admin") {
-    createAdmin(app);
+    if (getAuthenticated()) {
+        window.location.hash = "/admin/menu";} else {
+        createAdmin(app);}
   } else if (hash === "/admin/reservations"){
     createAdminReservation(app); 
   } else if (confirmationMatch) {
@@ -47,6 +49,8 @@ async function router() {
   } else if (reservationMatch) {
     const screeningId = reservationMatch[1];
     createReservation(app, screeningId);
+  } else if (hash === "/admin/movie-list") {
+    createAdminMovieList(app);
   } else {
     createNotFound(app)
   }

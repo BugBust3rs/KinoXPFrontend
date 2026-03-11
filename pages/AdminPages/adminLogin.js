@@ -1,5 +1,6 @@
 import { login } from "../../api/admin.api.js";
 
+localStorage.setItem("isAuthenticated", "true");
 export function createAdminLogin(app) {
     render(app);
 }
@@ -30,20 +31,34 @@ const render = (app) => {
     const button = document.createElement("button");
     button.textContent = "Login";
     button.classList.add("btn", "btn-secondary");
+    //button.onclick = async () => {
+        //const success = await login(usernameInput.value, passwordInput.value);
+        //console.log(success, "Login attempt");
+        //if (success) {
+         //   window.location.hash = "/admin/menu";
+        //} else {
+         //   error.style.display = "block";
+        //}
+    //};
+    
     button.onclick = async () => {
-        const success = await login(usernameInput.value, passwordInput.value);
-        console.log(success, "Login attempt");
-        if (success) {
-            window.location.hash = "/admin/menu";
-        } else {
-            error.style.display = "block";
-        }
+    const success = await login(usernameInput.value, passwordInput.value);
+    console.log("success:", success);
+    if (success) {
+        console.log("setting authenticated");
+        sessionStorage.setItem("isAuthenticated", "true");
+        setAuthenticated(true);
+        window.location.hash = "/admin/menu";
+    } else {
+        error.style.display = "block";
+    }
     };
 
     passwordInput.addEventListener("keydown", async (e) => {
         if (e.key === "Enter") {
             const success = await login(usernameInput.value, passwordInput.value);
             if (success) {
+                sessionStorage.setItem("isAuthenticated", "true");
                 window.location.hash = "/admin/menu";
             } else {
                 error.style.display = "block";
