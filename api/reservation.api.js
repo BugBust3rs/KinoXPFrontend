@@ -19,3 +19,26 @@ export async function postReservation(reservation) {
         console.error("Error posting reservation", error);
     });
 }
+
+export async function fetchReservations() {
+  try {
+    const response = await fetch("http://localhost:8080/reservations");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Reservation hentet:", data);
+    return data;
+
+  } catch (error) {
+    console.error("Fejl ved oprettelse af reservation:", error);
+  }
+}
+
+export async function deleteReservation(id) {
+    await fetch(`http://localhost:8080/reservations/${id}`, {
+        method: "DELETE"
+    });
+}

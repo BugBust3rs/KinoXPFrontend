@@ -202,12 +202,7 @@ function splitDateTime(datetime) {
   const [, month, day] = date.split("-");
   const [hours, minutes] = time.split(":");
 
-  return {
-    date: `${month}-${day}`,
-    time: `${hours}:${minutes}`,
-  };
 }
-
 function createPoster(movie) {
   const wrapper = document.createElement("div");
   wrapper.classList.add("d-flex", "gap-4", "align-items-start", "mb-4", "mt-5");

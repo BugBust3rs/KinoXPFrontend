@@ -3,6 +3,7 @@ import { createAdmin } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
+import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
 import { checkSession } from "./api/admin.api.js";
 import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
 
@@ -27,6 +28,8 @@ async function router() {
     createHome(app);
   } else if (hash === "/admin") {
     createAdmin(app);
+  } else if (hash === "/admin/reservations"){
+    createAdminReservation(app); 
   } else if (confirmationMatch) {
     createConfirmation(app, confirmationMatch[1]);
   } else if (hash === "/admin/menu") {
