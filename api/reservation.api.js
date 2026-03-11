@@ -1,19 +1,25 @@
-const reservation = 
-[
-    {
-    customerName: "Anders Jensen",
-    customerEmail: "anders@email.dk",
-    creationDate: new Date().toISOString().slice(0, 19), // format: "2026-03-09T14:30:00"
-    price: 149.95,
-    screening: {
-      id: 1  // reference til eksisterende screening
-    },
-    seats: [
-      { id: 3 }, // referencer til eksisterende sæder
-      { id: 7 }
-    ]
-  },
-];
+const BASE_URL_RESERVATION = "http://localhost:8080/reservations";
+
+export async function postReservation(reservation) {
+    console.log(reservation, "reservation");
+    return fetch(BASE_URL_RESERVATION, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reservation)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .catch(error => {
+        console.error("Error posting reservation", error);
+    });
+}
+
 export async function fetchReservations() {
   try {
     const response = await fetch("http://localhost:8080/reservations");

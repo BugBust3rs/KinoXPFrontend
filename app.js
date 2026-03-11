@@ -1,6 +1,5 @@
 import { createHome } from "./pages/home.js";
 import { createAdmin } from "./pages/AdminPages/admin.js";
-import { createAdmin } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
@@ -8,6 +7,7 @@ import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
 import { checkSession } from "./api/admin.api.js";
 import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
 
+import { createConfirmation } from "./pages/confirmation.js";
 // Router logic
 async function router() {
   // Get the hash (e.g., #/movies)
@@ -21,6 +21,7 @@ async function router() {
 
   const screeningsMatch = hash.match(/^\/screenings\/(\d+|[a-zA-Z0-9-_]+)$/);
   const reservationMatch = hash.match(/^\/reservation\/(\d+|[a-zA-Z0-9-_]+)$/);
+  const confirmationMatch = hash.match(/^\/confirmation\/(\d+|[a-zA-Z0-9-_]+)$/);
 
 
   if (hash === "/") {
@@ -29,8 +30,8 @@ async function router() {
     createAdmin(app);
   } else if (hash === "/admin/reservations"){
     createAdminReservation(app); 
-  }
-    else if (screeningsMatch) {
+  } else if (confirmationMatch) {
+    createConfirmation(app, confirmationMatch[1]);
   } else if (hash === "/admin/menu") {
     // const loggedIn = await checkSession();
     // console.log("Session check on menu:", loggedIn);
