@@ -130,16 +130,7 @@ function groupScreeningsByDate(screenings) {
   return grouped;
 }
 
-function splitDateTime(datetime) {
-  const [date, time] = datetime.split("T");
-  const [, month, day] = date.split("-");
-  const [hours, minutes] = time.split(":");
 
-  return {
-    date: `${month}-${day}`,
-    time: `${hours}:${minutes}`,
-  };
-}
 
 function createPoster(movie) {
   const wrapper = document.createElement("div");

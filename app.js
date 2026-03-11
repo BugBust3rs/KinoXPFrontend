@@ -1,9 +1,10 @@
 import { createMovies } from "./pages/movies.js";
 import { createHome } from "./pages/home.js";
-import { createAdmin } from "./pages/admin.js";
+import { createAdmin } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
+import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
 
 // Router logic
 function router() {
@@ -26,7 +27,10 @@ function router() {
     createMovies(app);
   } else if (hash === "/admin") {
     createAdmin(app);
-  } else if (screeningsMatch) {
+  } else if (hash === "/admin/reservations"){
+    createAdminReservation(app); 
+  }
+    else if (screeningsMatch) {
     const movieId = screeningsMatch[1];
     createScreenings(app, movieId);
   } else if (reservationMatch) {

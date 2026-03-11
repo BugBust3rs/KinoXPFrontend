@@ -15,7 +15,9 @@ export async function fetchScreenings(movieId) {
     return screenings.filter(screening => screening.movie.id === Number(movieId));
 }
 
-
+export async function fetchScreening(screeningId){
+  return screenings.find(screening => screening.id === Number(screeningId))
+}
 
 const screenings = [
   {
