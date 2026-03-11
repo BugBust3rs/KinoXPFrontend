@@ -183,6 +183,8 @@ function groupScreeningsByDate(screenings) {
   const grouped = {};
 
   screenings.forEach((screening) => {
+    console.log(screening.startTime, "screening.startTime");
+    
     const { date } = splitDateTime(screening.startTime);
 
     if (!grouped[date]) {
@@ -201,7 +203,10 @@ function splitDateTime(datetime) {
   const [date, time] = datetime.split("T");
   const [, month, day] = date.split("-");
   const [hours, minutes] = time.split(":");
-
+  return {
+    date: `${month}-${day}`,
+    time: `${hours}:${minutes}`,
+  };
 }
 function createPoster(movie) {
   const wrapper = document.createElement("div");

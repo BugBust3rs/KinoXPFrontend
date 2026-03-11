@@ -32,19 +32,3 @@ export async function fetchScreening(screeningId) {
     console.error("Error fetching screening", error);
   }
 }
-
-export async function fetchScreening(screeningId) {
-  try {
-    const response = await fetch(`${BASE_URL_SCREENINGS}${screeningId}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const screening = await response.json();
-    console.log(screening, "screening");
-     
-    return screening;
-
-  } catch (error) {
-    console.error("Error fetching screening", error);
-  }
-}
