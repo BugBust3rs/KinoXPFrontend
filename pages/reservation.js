@@ -2,6 +2,8 @@
 
 export function createReservation(app, screeningId) {
     console.log("hej");
+
+
     
   app.innerHTML = `
         <div class="hero">
@@ -11,4 +13,5 @@ export function createReservation(app, screeningId) {
         </div>
     `;
 }
+
 

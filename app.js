@@ -1,8 +1,10 @@
 import { createHome } from "./pages/home.js";
 import { createAdmin } from "./pages/AdminPages/admin.js";
+import { createAdmin } from "./pages/AdminPages/admin.js";
 import { createNotFound } from "./pages/notFound.js";
 import { createScreenings } from "./pages/screenings.js";
 import { createReservation } from "./pages/reservation.js";
+import { createAdminReservation } from "./pages/AdminPages/adminReservation.js";
 import { checkSession } from "./api/admin.api.js";
 import { createAdminMenu } from "./pages/AdminPages/adminMenu.js";
 
@@ -25,6 +27,10 @@ async function router() {
     createHome(app);
   } else if (hash === "/admin") {
     createAdmin(app);
+  } else if (hash === "/admin/reservations"){
+    createAdminReservation(app); 
+  }
+    else if (screeningsMatch) {
   } else if (hash === "/admin/menu") {
     // const loggedIn = await checkSession();
     // console.log("Session check on menu:", loggedIn);
