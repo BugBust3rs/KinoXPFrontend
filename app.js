@@ -21,7 +21,7 @@ async function router() {
 
   const screeningsMatch = hash.match(/^\/screenings\/(\d+|[a-zA-Z0-9-_]+)$/);
   const reservationMatch = hash.match(/^\/reservation\/(\d+|[a-zA-Z0-9-_]+)$/);
-  const confirmationMatch = hash.match(/^\/confirmation\/(\d+|[a-zA-Z0-9-_]+)$/);
+  const confirmationMatch = hash.match(/^\/confirmation\/(\d+)$/);
 
 
   if (hash === "/") {

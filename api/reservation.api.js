@@ -22,7 +22,9 @@ export async function postReservation(reservation) {
 
 export async function fetchReservations() {
   try {
-    const response = await fetch("http://localhost:8080/reservations");
+    const response = await fetch('http://localhost:8080/reservations/');
+    console.log(reservation); // 👈 hvad ser du i konsollen?
+console.log(reservation.screening); // 👈 er screening undefined?
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -36,6 +38,20 @@ export async function fetchReservations() {
     console.error("Fejl ved oprettelse af reservation:", error);
   }
 }
+
+// Henter én reservation via id
+export async function fetchReservation(id) {
+    try {
+        const response = await fetch(`http://localhost:8080/reservations/${id}`); // 👈 backticks
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Fejl ved hentning af reservation:", error);
+    }
+}
+
 
 export async function deleteReservation(id) {
     await fetch(`http://localhost:8080/reservations/${id}`, {
