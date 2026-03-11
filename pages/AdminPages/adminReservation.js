@@ -1,4 +1,4 @@
-export function createAdmin(app) {
+export function createAdminReservation(app) {
   render(app);
 }
 
