@@ -1,0 +1,46 @@
+.action-column {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.kebab-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  order: 999; /* 👈 forces kebab to the far right */
+}
+
+.kebab-button {
+  min-width: 42px;
+  height: 38px;
+  padding: 0.375rem 0.75rem;
+  line-height: 1;
+}
+
+.kebab-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #1f2430;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 1000;
+  min-width: 140px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+table td.action-column,
+table th.action-column {
+  text-align: right;
+}

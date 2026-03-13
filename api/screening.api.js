@@ -32,3 +32,17 @@ export async function fetchScreening(screeningId) {
     console.error("Error fetching screening", error);
   }
 }
+
+export async function createScreening(screeningData) {
+  try {
+    const response = await fetch(BASE_URL_SCREENINGS, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(screeningData),
+    });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating screening", error);
+  }
+}
