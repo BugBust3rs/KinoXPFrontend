@@ -95,7 +95,7 @@ const createMovieRow = (movie, tbody, app) => { // tilføjet tbody og app som pa
     const durationCell = document.createElement("td");
     durationCell.textContent = movie.durationMinutes;
 
-    
+
 
     // 4. lav td for category
     // 5. lav td for ageLimit
@@ -205,9 +205,9 @@ const createKebabMenu = (movie, row) => { // tilføjet row som parameter
 };
 
 const openMovieModal = (movie = null, app) => {
-    document.getElementById("movie-modal")?.remove(); // fjern eksisterende modal hvis den findes
+    document.getElementById("movie-modal")?.remove();
 
-    const isEdit = movie !== null; // afgør om vi redigerer eller opretter
+    const isEdit = movie !== null;
 
     const overlay = document.createElement("div");
     overlay.id = "movie-modal";
@@ -222,7 +222,6 @@ const openMovieModal = (movie = null, app) => {
         padding: 2rem; min-width: 400px; color: white;
     `;
 
-    // udfylder felter med eksisterende værdier hvis vi redigerer
     modal.innerHTML = `
         <h4 class="mb-4">${isEdit ? "Edit Movie" : "Add Movie"}</h4>
         <div class="mb-3">
@@ -245,6 +244,11 @@ const openMovieModal = (movie = null, app) => {
             <label class="form-label">Age Limit</label>
             <input id="m-agelimit" type="number" class="form-control bg-dark text-white border-secondary" value="${isEdit ? movie.ageLimit : ""}">
         </div>
+        <div class="mb-3">
+            <label class="form-label">Poster Image</label>
+            <input type="file" id="m-image" accept="image/*" class="form-control bg-dark text-white border-secondary">
+            <img id="m-preview" src="${isEdit && movie.poster ? movie.poster : ""}" width="200" class="mt-2" style="${isEdit && movie.poster ? "" : "display:none"}">
+        </div>
         <div class="d-flex gap-2 justify-content-end mt-4">
             <button id="m-cancel" class="btn btn-secondary">Cancel</button>
             <button id="m-save" class="btn btn-success">${isEdit ? "Save Changes" : "Create Movie"}</button>
@@ -254,7 +258,24 @@ const openMovieModal = (movie = null, app) => {
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
 
-    // luk modal ved klik på cancel eller baggrund
+    // ✅ Track base64 string in this scope so the save handler can access it
+    let base64String = isEdit ? movie.poster ?? null : null;
+
+    // ✅ Wire up the image input after the modal is in the DOM
+    document.getElementById("m-image").addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function () {
+            base64String = reader.result; // updates the shared variable
+            const preview = document.getElementById("m-preview");
+            preview.src = base64String;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    });
+
     document.getElementById("m-cancel").addEventListener("click", () => overlay.remove());
     overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
 
@@ -265,16 +286,17 @@ const openMovieModal = (movie = null, app) => {
             description: document.getElementById("m-description").value,
             category: document.getElementById("m-category").value,
             ageLimit: parseInt(document.getElementById("m-agelimit").value),
+            image: base64String, 
         };
 
         if (isEdit) {
-            await updateMovie(movie.id, data); // kalder updateMovie API hvis vi redigerer
+            await updateMovie(movie.id, data);
         } else {
-            await createMovie(data); // kalder createMovie API hvis vi opretter
+            await createMovie(data);
         }
 
         overlay.remove();
-        render(app); // genindlæser tabellen efter gem
+        render(app);
     });
 };
 
@@ -326,8 +348,8 @@ const openScreeningModal = (movie) => {
 
     document.getElementById("s-save").addEventListener("click", async () => {
         const data = {
-            movie: { id: movie.id },
-            hall: { id: parseInt(document.getElementById("s-hall").value) },
+            movieId: movie.id,
+            hallId: parseInt(document.getElementById("s-hall").value),
             startTime: document.getElementById("s-start").value,
             basePrice: parseFloat(document.getElementById("s-price").value),
             is3D: document.getElementById("s-3d").checked,

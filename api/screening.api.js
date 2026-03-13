@@ -1,8 +1,8 @@
-const BASE_URL_SCREENINGS = "http://localhost:8080/screenings/";
+const BASE_URL_SCREENINGS = "http://localhost:8080/screenings";
 
 export async function fetchScreenings(movieId) {
   try {
-    const response = await fetch(`${BASE_URL_SCREENINGS}movie/${movieId}`);
+    const response = await fetch(`${BASE_URL_SCREENINGS}/movie/${movieId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -19,7 +19,7 @@ export async function fetchScreenings(movieId) {
 
 export async function fetchScreening(screeningId) {
   try {
-    const response = await fetch(`${BASE_URL_SCREENINGS}${screeningId}`);
+    const response = await fetch(`${BASE_URL_SCREENINGS}/${screeningId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
