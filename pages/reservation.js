@@ -5,7 +5,7 @@ let totalPrice = 0;
 
 export async function createReservation(app, screeningId) {
     const screening = await fetchScreening(screeningId);
-    const seats = screening.seats;
+    const seats = screening.seatResponseList;
     let basePrice = screening.basePrice;
     if (screening.is3D){
         basePrice += 40;

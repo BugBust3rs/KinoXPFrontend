@@ -35,12 +35,6 @@ async function router() {
   } else if (confirmationMatch) {
     createConfirmation(app, confirmationMatch[1]);
   } else if (hash === "/admin/menu") {
-    // const loggedIn = await checkSession();
-    // console.log("Session check on menu:", loggedIn);
-    // if (!loggedIn) {
-    //   window.location.hash = "/admin";
-    //   return;
-    // }
     createAdminMenu(app);
 
   } else if (screeningsMatch) {

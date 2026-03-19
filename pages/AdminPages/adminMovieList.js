@@ -164,6 +164,7 @@ const createDeleteButton = (movie, row) => { // tilføjet row som parameter
     button.addEventListener("click", async () => {
         const confirmed = confirm(`Delete "${movie.title}"?`); // bekræftelsesdialog før sletning
         if (confirmed) {
+            console.log(movie, "movie from dleete")
             await deleteMovie(movie.id); // kalder deleteMovie API
             row.remove(); // fjerner rækken fra tabellen uden at genindlæse siden
         }
@@ -247,7 +248,7 @@ const openMovieModal = (movie = null, app) => {
         <div class="mb-3">
             <label class="form-label">Poster Image</label>
             <input type="file" id="m-image" accept="image/*" class="form-control bg-dark text-white border-secondary">
-            <img id="m-preview" src="${isEdit && movie.poster ? movie.poster : ""}" width="200" class="mt-2" style="${isEdit && movie.poster ? "" : "display:none"}">
+            
         </div>
         <div class="d-flex gap-2 justify-content-end mt-4">
             <button id="m-cancel" class="btn btn-secondary">Cancel</button>
